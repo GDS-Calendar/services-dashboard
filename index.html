@@ -1,4 +1,118 @@
-<!DOCTYPE html>
+.stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .director-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .director-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 4px solid #e2e8f0;
+        }
+
+        .director-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .director-card.active {
+            background: #f7fafc;
+            border-left-width: 6px;
+        }
+
+        .director-card.khalid { border-left-color: #ff9999; }
+        .director-card.shelley { border-left-color: #99ccff; }
+        .director-card.chris-o { border-left-color: #99ff99; }
+        .director-card.walid { border-left-color: #ffcc99; }
+        .director-card.chris-f { border-left-color: #cc99ff; }
+        .director-card.natalie { border-left-color: #ffff99; }
+
+        .director-card.khalid.active { background: linear-gradient(135deg, #ff9999, #ffb3b3); color: white; }
+        .director-card.shelley.active { background: linear-gradient(135deg, #99ccff, #b3d9ff); color: white; }
+        .director-card.chris-o.active { background: linear-gradient(135deg, #99ff99, #b3ffb3); color: white; }
+        .director-card.walid.active { background: linear-gradient(135deg, #ffcc99, #ffd9b3); color: white; }
+        .director-card.chris-f.active { background: linear-gradient(135deg, #cc99ff, #d9b3ff); color: white; }
+        .director-card.natalie.active { background: linear-gradient(135deg, #ffff99, #ffffb3); color: #333; }
+
+        .director-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .director-card.active .director-name {
+            color: inherit;
+        }
+
+        .director-count {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+
+        .director-card.active .director-count {
+            color: inherit;
+        }
+
+        .director-label {
+            font-size: 0.8rem;
+            color: #718096;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .director-card.active .director-label {
+            color: inherit;
+            opacity: 0.9;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .breadcrumb-item {
+            cursor: pointer;
+            color: #4299e1;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-item:hover {
+            color: #2b6cb0;
+        }
+
+        .breadcrumb-separator {
+            color: #a0aec0;
+        }
+
+        .breadcrumb-current {
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        .section-divider {
+            border-top: 2px solid #e2e8f0;
+            margin: 30px 0;
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -937,6 +1051,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 console.log('Number of projects after processing:', projectsData.length);
                 
                 updateStats(projectsData);
+                updateDirectorStats(projectsData);
                 renderProjects(projectsData);
                 
             } catch (error) {
