@@ -433,14 +433,20 @@
 <body>
     <div class="dashboard-container">
         <div class="header">
-            <h1>🦗 GDS Services Team Dashboard</h1>
+            <h1>Services Team Dashboard</h1>
+            <div class="subtitle">Real-time project oversight & team coordination</div>
         </div>
 
-        <!-- Breadcrumb Navigation -->
-        <div class="breadcrumb" id="breadcrumb" style="display: none;">
-            <span class="breadcrumb-item" onclick="navigateToHome()">🏠 Dashboard</span>
-            <span class="breadcrumb-separator">›</span>
-            <span class="breadcrumb-current" id="breadcrumbCurrent"></span>
+        <!-- Navigation Row -->
+        <div class="navigation-row">
+            <div class="home-card" id="homeCard" onclick="navigateToHome()" style="display: none;">
+                <span>🏠</span>
+                <span>Back to Dashboard</span>
+            </div>
+            <div class="breadcrumb" id="breadcrumb" style="display: none;">
+                <span class="breadcrumb-current" id="breadcrumbCurrent"></span>
+            </div>
+            <div></div> <!-- Spacer for flexbox -->
         </div>
 
         <!-- Director Stats Grid -->
@@ -728,7 +734,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
             });
             document.querySelector('.filter-btn').classList.add('active');
 
-            // Show breadcrumb
+            // Show navigation elements
+            document.getElementById('homeCard').style.display = 'flex';
             document.getElementById('breadcrumb').style.display = 'flex';
             document.getElementById('breadcrumbCurrent').textContent = `${director}'s Projects`;
 
@@ -756,7 +763,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
             });
             document.querySelector('.filter-btn').classList.add('active');
 
-            // Hide breadcrumb
+            // Hide navigation elements
+            document.getElementById('homeCard').style.display = 'none';
             document.getElementById('breadcrumb').style.display = 'none';
 
             // Reset title
