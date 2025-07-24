@@ -41,12 +41,6 @@
             margin-bottom: 10px;
         }
 
-        .header p {
-            font-size: 1.2rem;
-            color: #718096;
-            font-weight: 300;
-        }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -379,13 +373,38 @@
     <script>
         // Your Google Sheet configuration
         const SHEET_ID = '1RhdRHKaMNExM725H6Rdh9pK7lA7H-e9QfkXe1Oy01cs';
-        // Update the Google Sheets range to get ALL projects (including completed and on hold)
-        const RANGE = 'Dashboard!A5:F1000;On Hold Projects!A2:F1000;Completed Projects!A2:F1000';
         
         // Service account credentials
         const SERVICE_ACCOUNT = {
             client_email: 'gds-dashboard-reader-v2@services-projects-dashboard.iam.gserviceaccount.com',
-            private_key: `-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSnkkvFlOdjuTj\n7mWBvEEbsUWQ9IljttGT+3J+OOVux8dyVqTKX1vwiE6VsBg9wSCKjr6w1BdrS0j5\naQq3QpYEaZ6RAyXiBu2uEdVG87JYDiu+I4g0VV877MHOmzKgoGNnWBxEq22V2oEd\n/IToVW/1DuqEI/E+5ba5lYxpmBHkVFz5bpZwluvSgasm8VQ4BRsFokx0bZsbnjg4\ne5rWvn4eecmo+HTfciaNp4JdHUaojPmtryA5hi2z9FMvEZeHlApzr7/W8KleXH8Y\niTn/980Yx8WfcP0N9GI4mt1rPucByak0uu2uOKHRY5kTMI8nSbLEAVreEZyeMeYn\nnRprHRH1AgMBAAECggEABF6eUWjFgVOmnLKkeSWTtY8JohvrVx3tiS7CowBr2iQw\n7MauvTgZ6zVDaXLxfc5/mKr6JScGpAY4KbHWiWjLPfoxp6aIvFYSdksObAjASXgP\nIO8RyKwra/iEfinVdLmpy59rWWKzxP53MU0SNikXnTObBUoi8NVz415z6aOVs3FM\nUR6pNLGNXxEhQ2Xt8Io96jl3fmzuEjr/Z33V0LQc4PtfW6+QoNPBUVufQQ8aTVWo\nNAIOugK5zDa4yp0JhY5NCYJgD8knhaQ6Yj5O5QE5AO1GhCgYnSTEevJHrsMB212N\nsAiCeYyTUkrW4bGb+tZryNGz6uZoFE/R9Zm/h2GMAQKBgQDyJKixFzsFbqkqwgw1\nTVFs9G9TzBhG9Wv2IlMjtBiY/xXnV/FABQwSAsfpRsjdjQkaba+UI8HC2GLgv0kn\nvCaeb5VAbD7jVJ03vLgTkWBcExoglppOwKDPELeyFpA97sxDB/jF1A/mT0wk8izY\nUQWLXk0xHwsRD9R/FzNXvOBC9QKBgQDeq8trlvj6KyQw9ydE/J4BMyS3B8Zkb80o\nMyvL8uad7zSfx4jPe98+UdXhYnQpgvO8Su6m3vR3G3xr2LAfeZ8EPvU8a8iPeZIW\nIOFQ/MjlKea8bPOoGzwMNj3tkQ2wWNPnigvNt5GRG2KboWSNZMhV+6wd1W7LT5+Q\nWBPxSY4zAQKBgHwj3TRFQ6YKUMIyD8434HnqazTb2spuQjZC7LrONxohFNqxFGcM\n715AfLsU5h/nkXYyK6TYHBtHkpHEn722UVpCvJL1q9wiYiPUJc8qZetug6OXcm7T\nhN4DpRmxRavqxF/NM3ZAvRIHL3N1kRYpm50S8KIxVxwdMIUjoNfnZlYNAoGBAMg7\nqhgc0dV8t/XEOq7hj2A60lg4iKHGm7D7mvWyfskk0qifsJoLpSuQQYmElDrEBFOc\n+lBai3ET6WW9nFshbepOhw6HSfoi80gs1xCR0EGq1U85lj3kB7JfkH6yAqJCroM2\ncvjRivf2rUyP7DDtoO0Y/KRzSkdPWYhee8htQY8BAoGBANp5L5+FWLs87eDj6OPy\nHSMl4MIjfdli/OL2ZbZAYQEk2p6m3/HqcSdAuOfw0n48yRumMkdZ5vzH9JQgzpvh\n5izlwDhWovS7O9MovsY30aFjVadNuxtAC4UwCcuu33H00PYAY5VY6Q+zb7whORfp\nc/aDkD1hlD9v15cXlvYFAllw\n-----END PRIVATE KEY-----\n`
+            private_key: `-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRVF/bCFpIywhJ
+FAXfb9QpWD3tAtqGAaRnSzwJ5DwZjThps3tiEUjXJWK3c9cZ89FrRnCX1mU9P8N/
+9n5P+p/GnqyZYgStzrY3hGt29OHmgK1AjJKMgO8uLVPsbn5aC+JOvLyOEOlzf0Ft
+VAROnKv38jq3PzZt62QgAlE+VJ90QZ4bsK+vSsDVU9xd3uYtlXIj4rd9y1N0X0rV
+JkiKU8lBoKnzCqY3fE7gL/zPa6r3T+VMXREp1eOuGAaW06k3MDU2ML6zjpk7SR4m
+qnZ4dSaJvABTrdP0/98lV7r1MlvjAN+mewy5NOHtXOfOe81lD2I/UYvkt4NJp2W9
+5wdL2RIfAgMBAAECggEAAuoWX2R+6CfUhupXLfaALXo2gil/IyvVy9YyC4ZL4plN
+ElMZmstQ9GdcZ4CFDPcfA/B3bKQoyPAT+TMoktkXBQuMw27mXoxgqa9p2LN4fNVK
+g8MjjlZ1umB4z35qKMKzgtbtNCe5S1I8QtyYaGnIizWM91rEl7PJKD1x2SAvCFGb
+SFHSIh1QVwPccFCwdHZf2MdiTfMlV2Ozofd+uJJnPNFyRLRMGGG0WUh6LL52KLc/
+5HByGd9nQCPrvOET0pZnK8tjmskfbyPCEe1BQFfT3FfCd9N6perIxJ9SHE7hc9e8
+EZzr4QOkvV8B9VxDxkXLkO9KTYi+Jqt49lSnMPnX2QKBgQDqDunMYvd+aLynipQu
+dYWNd9pCANf0N+kwch0cR0rg3reDpnYXxuAa/uwaB8yPEgkEFeJh1QVRtHiNET5I
+VkgIj7pVJ9WgmF6RJsBLEkUxc3UNWmAda5QFEMyKKr8w1sQHy85srMHryDXOuHvo
+696GM5PuW01cgQU/lBRCxyILKQKBgQDk9AGMHM3kM8F9Dr5tX+qMIneWbM3UsOdr
+2Q7W+af2MjqnVkkVnDjesyD/1BB+HrPD0hknK/WKz/unlSeVqaoWwDShxzkJLBdE
+JSKATo/GABpN2FHjgCAgnNFJYmHvus0WMcvyUxGxwEzYhlXkXNqu2KyIz+p9heVy
+n+WisbEkBwKBgQCMryoYj+PzN0Et8z3eLwV3YvLteVRUlsazN+QHe1Kmlzf3Cbcx
+03ggwdloTAfIdy60JfNMmp333mIXaKXnFPV3L+zwAmGFhhBRbtlmRjUQ5DUXMZtU
+E7WE1fQbmFYTJQPvK7GH4M8uyciN2JWiCyRVxerE+lwlnedpr7f963OrAQKBgDsL
+Jh8BCqPQKRTcKYXBV5ZeCSMU2hwApx2r82TDK2qVV4Tx/pUBHbVo0pjHEp3Dwy47
+z1rHvmHW8xorn/K7t254kNorq2zPHwzm2rfmCrPQMPhkUfHuh9qBNoPLSGBvdxZD
+L0pF2+lQI0Evm5Tx0T+IBy6dF+bZEev2ilzjoEAfAoGAGOi6Dl8JYW7D1eVs3HSo
+D18p7NJTqqXC2h7oqBsz/D+6E4ttSNVjR4ZiAkeEq4pfin4QegM5q9grDXg7hcvJ
+pgst9tIw0qWbJd1mclDFCSZLeG2PKxAgUIAfa8O0dtkxq1IWoKmU0eWpVQSex5j+
+AIGzN03HTyw4UxY4P+L+l2I=
+-----END PRIVATE KEY-----`
         };
 
         let currentFilter = 'all';
@@ -699,24 +718,14 @@
             }
         }
 
-        function loadData() {
-            // Show loading state
-            document.getElementById('projectsContainer').innerHTML = `
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading projects from Google Sheets...</p>
-                </div>
-            `;
+        // Auto-refresh every 3 minutes (180,000 milliseconds)
+        setInterval(loadData, 3 * 60 * 1000);
 
-            // Load from Google Sheets
-            loadFromGoogleSheets();
-        }
-
-        // Auto-refresh every 5 minutes
-        setInterval(loadData, 5 * 60 * 1000);
-
-        // Initial load
-        loadData();
-    </script>
-</body>
-</html>
+        // Show refresh indicator
+        function showRefreshIndicator() {
+            const refreshBtn = document.querySelector('.refresh-btn');
+            refreshBtn.innerHTML = '⏳';
+            refreshBtn.style.transform = 'scale(1.1)';
+            
+            setTimeout(() => {
+                refresh
