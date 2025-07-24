@@ -439,14 +439,13 @@
 
         <!-- Navigation Row -->
         <div class="navigation-row">
-            <div class="home-card" id="homeCard" onclick="navigateToHome()" style="display: none;">
+            <button class="home-card" id="homeCard" onclick="navigateToHome()" style="display: none;">
                 <span>🏠</span>
                 <span>Back to Dashboard</span>
+            </button>
+            <div class="breadcrumb-card" id="breadcrumbCard" style="display: none;">
+                <span id="breadcrumbCurrent"></span>
             </div>
-            <div class="breadcrumb" id="breadcrumb" style="display: none;">
-                <span class="breadcrumb-current" id="breadcrumbCurrent"></span>
-            </div>
-            <div></div> <!-- Spacer for flexbox -->
         </div>
 
         <!-- Director Stats Grid -->
@@ -736,7 +735,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
 
             // Show navigation elements
             document.getElementById('homeCard').style.display = 'flex';
-            document.getElementById('breadcrumb').style.display = 'flex';
+            document.getElementById('breadcrumbCard').style.display = 'block';
             document.getElementById('breadcrumbCurrent').textContent = `${director}'s Projects`;
 
             // Update projects title
@@ -765,7 +764,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
 
             // Hide navigation elements
             document.getElementById('homeCard').style.display = 'none';
-            document.getElementById('breadcrumb').style.display = 'none';
+            document.getElementById('breadcrumbCard').style.display = 'none';
 
             // Reset title
             document.querySelector('.projects-title').textContent = 'Active Projects';
