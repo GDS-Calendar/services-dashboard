@@ -728,4 +728,29 @@ AIGzN03HTyw4UxY4P+L+l2I=
             refreshBtn.style.transform = 'scale(1.1)';
             
             setTimeout(() => {
-                refresh
+                refreshBtn.innerHTML = '🔄';
+                refreshBtn.style.transform = 'scale(1)';
+            }, 2000);
+        }
+
+        // Enhanced loadData function with refresh indicator
+        function loadData() {
+            showRefreshIndicator();
+            
+            // Show loading state
+            document.getElementById('projectsContainer').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading projects from Google Sheets...</p>
+                </div>
+            `;
+
+            // Load from Google Sheets
+            loadFromGoogleSheets();
+        }
+
+        // Initial load
+        loadData();
+    </script>
+</body>
+</html>
