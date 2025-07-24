@@ -14,43 +14,37 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #ffffff;
             min-height: 100vh;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 24px;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .header h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: #2d3748;
+            letter-spacing: -0.02em;
         }
 
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 25px;
-            border-radius: 15px;
-            color: white;
-            margin: -30px -30px 25px -30px;
-        }
-
-        .header h1 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .header .subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 5px;
-            font-weight: 300;
+            background: transparent;
+            padding: 70px 20px 20px 20px;
         }
 
         .navigation-row {
@@ -63,43 +57,42 @@
         }
 
         #homeCard {
-            background: linear-gradient(135deg, #4299e1, #2b6cb0);
-            color: white;
-            padding: 16px 28px;
-            border-radius: 12px;
+            background: #f7fafc;
+            color: #2d3748;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 1rem;
-            box-shadow: 0 6px 20px rgba(66, 153, 225, 0.3);
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: none;
+            gap: 8px;
+            border: 1px solid #e2e8f0;
             text-decoration: none;
             user-select: none;
         }
 
         #homeCard:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 35px rgba(66, 153, 225, 0.4);
-            background: linear-gradient(135deg, #3182ce, #2c5282);
+            background: #edf2f7;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
         }
 
         #homeCard .icon {
-            font-size: 1.2rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            font-size: 1rem;
         }
 
         #breadcrumbCard {
-            background: white;
+            background: #f7fafc;
             color: #2d3748;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: 2px solid #e2e8f0;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
         }
 
         .director-stats-grid {
@@ -464,12 +457,11 @@
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="header">
-            <h1>Services Team Dashboard</h1>
-            <div class="subtitle">Real-time project oversight & team coordination</div>
-        </div>
+    <div class="header">
+        <h1>Services Team Dashboard</h1>
+    </div>
 
+    <div class="dashboard-container">
         <!-- Navigation Row -->
         <div class="navigation-row">
             <div id="homeCard" onclick="navigateToHome()" style="display: none;">
