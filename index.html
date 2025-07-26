@@ -219,6 +219,7 @@
             text-align: center;
             transition: all 0.2s ease;
             cursor: pointer;
+            border: 2px solid transparent;
         }
 
         .stat-card:hover {
@@ -235,8 +236,88 @@
             color: white;
         }
 
+        /* Special styling for Completed card */
+        #statCompleted {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+        }
+
+        #statCompleted .stat-number {
+            color: #22c55e;
+        }
+
+        #statCompleted .stat-label {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* Special styling for On Hold card */
+        #statOnHold {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            opacity: 0.8;
+        }
+
+        #statOnHold .stat-number {
+            color: #64748b;
+        }
+
+        #statOnHold .stat-label {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* Active states for special cards */
+        #statCompleted.active {
+            background: #22c55e;
+            border-color: #16a34a;
+        }
+
         .stat-card.active .stat-label {
             color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Special styling for Completed card */
+        #statCompleted {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+        }
+
+        #statCompleted .stat-number {
+            color: #22c55e;
+        }
+
+        #statCompleted .stat-label {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* Special styling for On Hold card */
+        #statOnHold {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            opacity: 0.8;
+        }
+
+        #statOnHold .stat-number {
+            color: #64748b;
+        }
+
+        #statOnHold .stat-label {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* Active states for special cards */
+        #statCompleted.active {
+            background: #22c55e;
+            border-color: #16a34a;
+        }
+
+        #statOnHold.active {
+            background: #64748b;
+            border-style: solid;
+            opacity: 1;
         }
 
         .stat-number {
@@ -841,7 +922,9 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 'all': 'statAll',
                 'blocked/stuck': 'statBlocked', 
                 'in progress': 'statProgress',
-                'not started': 'statNotStarted'
+                'not started': 'statNotStarted',
+                'completed': 'statCompleted',
+                'on hold': 'statOnHold'
             };
             
             if (cardMap[status]) {
