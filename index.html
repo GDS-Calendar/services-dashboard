@@ -258,6 +258,7 @@
         .on-track { color: #48bb78; }
         .not-started { color: #4299e1; }
         .completed { color: #805ad5; }
+        .on-hold { color: #718096; }
 
         .projects-header {
             display: flex;
@@ -549,18 +550,18 @@
                 <div class="stat-number not-started" id="notStarted">--</div>
                 <div class="stat-label">Not Started</div>
             </div>
+            <div class="stat-card" onclick="filterByStatCard('completed')" id="statCompleted">
+                <div class="stat-number completed" id="completed">--</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card" onclick="filterByStatCard('on hold')" id="statOnHold">
+                <div class="stat-number on-hold" id="onHold">--</div>
+                <div class="stat-label">On Hold</div>
+            </div>
         </div>
 
         <div class="projects-header">
             <h2 class="projects-title">Active Projects</h2>
-            <div class="filter-buttons">
-                <button class="filter-btn active" onclick="filterProjects('all')">All</button>
-                <button class="filter-btn" onclick="filterProjects('blocked/stuck')">Blocked/Stuck</button>
-                <button class="filter-btn" onclick="filterProjects('in progress')">In Progress</button>
-                <button class="filter-btn" onclick="filterProjects('not started')">Not Started</button>
-                <button class="filter-btn completed" onclick="filterProjects('completed')">✅ Completed</button>
-                <button class="filter-btn on-hold" onclick="filterProjects('on hold')">⏸️ On Hold</button>
-            </div>
         </div>
 
         <div class="projects-container" id="projectsContainer">
@@ -710,11 +711,15 @@ AIGzN03HTyw4UxY4P+L+l2I=
             const blockedStuck = data.filter(p => p.status === 'Blocked/Stuck').length;
             const inProgress = data.filter(p => p.status === 'In Progress').length;
             const notStarted = data.filter(p => p.status === 'Not Started').length;
+            const completed = data.filter(p => p.status === 'Completed').length;
+            const onHold = data.filter(p => p.status === 'On Hold').length;
 
             document.getElementById('totalProjects').textContent = total;
             document.getElementById('blockedStuck').textContent = blockedStuck;
             document.getElementById('inProgress').textContent = inProgress;
             document.getElementById('notStarted').textContent = notStarted;
+            document.getElementById('completed').textContent = completed;
+            document.getElementById('onHold').textContent = onHold;
         }
 
         function renderProjects(data) {
