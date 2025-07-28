@@ -682,10 +682,14 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 showSuccess('Adding project...');
                 
                 const token = await getAccessToken();
+                console.log('Got access token');
+                
                 const sheetName = getSheetName(currentDirector);
+                console.log('Sheet name:', sheetName);
                 
                 // Find next empty row
                 const nextRow = directorProjects.length + 2;
+                console.log('Next row:', nextRow);
                 
                 // Add new project
                 const values = [[
@@ -695,6 +699,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                     new Date().toLocaleDateString(),
                     targetDate || ''
                 ]];
+                console.log('Values to append:', values);
                 
                 await appendRow(token, sheetName, values);
                 
@@ -705,8 +710,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 }, 1500);
                 
             } catch (error) {
-                console.error('Error adding project:', error);
-                showError('Failed to add project. Please try again.');
+                console.error('Detailed error:', error);
+                showError(`Failed to add project: ${error.message}`);
             }
         }
 
@@ -731,25 +736,29 @@ AIGzN03HTyw4UxY4P+L+l2I=
         }
 
         async function appendRow(token, sheetName, values) {
-            const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:E:append?valueInputOption=USER_ENTERED`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        values: values
-                    })
-                }
-            );
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:E:append?valueInputOption=USER_ENTERED`;
+            console.log('Append URL:', url);
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    values: values
+                })
+            });
+            
+            const responseData = await response.json();
+            console.log('API Response:', responseData);
             
             if (!response.ok) {
-                const error = await response.json();
-                console.error('API Error:', error);
-                throw new Error('Failed to add row');
+                console.error('API Error Details:', responseData);
+                throw new Error(responseData.error?.message || 'Failed to add row');
             }
+            
+            return responseData;
         }
 
         function showSuccess(message) {
