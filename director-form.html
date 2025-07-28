@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDS Project Updates</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='white' stroke='%23e2e8f0' stroke-width='2'/><text x='50' y='65' text-anchor='middle' font-size='50'>🦗</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .director-selector {
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .director-selector:hover {
+            border-color: #cbd5e0;
+        }
+
+        .director-selector:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: #718096;
+        }
+
+        .remember-me input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .main-actions {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: #48bb78;
+        }
+
+        .action-btn.secondary:hover {
+            background: #38a169;
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+        }
+
+        .project-list {
+            display: none;
+            gap: 12px;
+        }
+
+        .project-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            border-left-width: 4px;
+        }
+
+        .project-card:hover {
+            border-color: #cbd5e0;
+            transform: translateX(2px);
+        }
+
+        .project-card.khalid { border-left-color: #ff9999; }
+        .project-card.shelley { border-left-color: #99ccff; }
+        .project-card.oster { border-left-color: #99ff99; }
+        .project-card.walid { border-left-color: #ffcc99; }
+        .project-card.chris-f { border-left-color: #cc99ff; }
+        .project-card.natalie { border-left-color: #ffff99; }
+
+        .project-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .project-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-not-started { background: #e2e8f0; color: #2d3748; }
+        .status-in-progress { background: #c6f6d5; color: #22543d; }
+        .status-blocked-stuck { background: #fed7d7; color: #742a2a; }
+        .status-completed { background: #d6f5d6; color: #22543d; }
+        .status-on-hold { background: #f7fafc; color: #4a5568; }
+
+        .update-form, .add-form {
+            display: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+
+        .status-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-btn {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .status-btn:hover {
+            border-color: #cbd5e0;
+        }
+
+        .status-btn.active {
+            background: #4299e1;
+            color: white;
+            border-color: #4299e1;
+        }
+
+        .form-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .back-btn {
+            background: #e2e8f0;
+            color: #2d3748;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #cbd5e0;
+        }
+
+        .submit-btn {
+            background: #48bb78;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #38a169;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .success-message {
+            background: #c6f6d5;
+            color: #22543d;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            background: #fed7d7;
+            color: #742a2a;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            display: none;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .status-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Project Updates</h1>
+        </div>
+
+        <div class="success-message" id="successMessage"></div>
+        <div class="error-message" id="errorMessage"></div>
+
+        <!-- Director Selection -->
+        <div id="directorSelection">
+            <select class="director-selector" id="directorSelect">
+                <option value="">Select your name...</option>
+                <option value="Khalid">Khalid</option>
+                <option value="Shelley">Shelley</option>
+                <option value="Oster">Chris O.</option>
+                <option value="Walid">Walid</option>
+                <option value="Chris F.">Chris F.</option>
+                <option value="Natalie">Natalie</option>
+            </select>
+            
+            <label class="remember-me">
+                <input type="checkbox" id="rememberMe" checked>
+                Remember me on this device
+            </label>
+        </div>
+
+        <!-- Main Actions -->
+        <div class="main-actions" id="mainActions" style="display: none;">
+            <button class="action-btn" onclick="showProjectList()">
+                <span>📝</span>
+                <span>Update Project</span>
+            </button>
+            <button class="action-btn secondary" onclick="showAddForm()">
+                <span>➕</span>
+                <span>Add New Project</span>
+            </button>
+        </div>
+
+        <!-- Project List -->
+        <div class="project-list" id="projectList"></div>
+
+        <!-- Update Form -->
+        <div class="update-form" id="updateForm">
+            <h2 style="margin-bottom: 20px;">Update Project</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" class="form-input" id="updateProjectName" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Status</label>
+                <div class="status-buttons">
+                    <button class="status-btn" onclick="selectStatus('Not Started')">🔵 Not Started</button>
+                    <button class="status-btn" onclick="selectStatus('In Progress')">🟢 In Progress</button>
+                    <button class="status-btn" onclick="selectStatus('Blocked/Stuck')">🔴 Blocked/Stuck</button>
+                    <button class="status-btn" onclick="selectStatus('Completed')">✅ Completed</button>
+                    <button class="status-btn" onclick="selectStatus('On Hold')" style="grid-column: span 2;">⏸️ On Hold</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Note (Optional)</label>
+                <textarea class="form-textarea" id="updateNote" rows="3" placeholder="Add any updates or context..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button class="back-btn" onclick="showMainActions()">Back</button>
+                <button class="submit-btn" onclick="submitUpdate()">Update Project</button>
+            </div>
+        </div>
+
+        <!-- Add Form -->
+        <div class="add-form" id="addForm">
+            <h2 style="margin-bottom: 20px;">Add New Project</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Project Name</label>
+                <input type="text" class="form-input" id="addProjectName" placeholder="Enter project name...">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Initial Status</label>
+                <div class="status-buttons">
+                    <button class="status-btn active" onclick="selectStatus('Not Started')">🔵 Not Started</button>
+                    <button class="status-btn" onclick="selectStatus('In Progress')">🟢 In Progress</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Target Date (Optional)</label>
+                <input type="date" class="form-input" id="addTargetDate">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Initial Note (Optional)</label>
+                <textarea class="form-textarea" id="addNote" rows="3" placeholder="Add any initial context..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button class="back-btn" onclick="showMainActions()">Back</button>
+                <button class="submit-btn" onclick="submitAdd()">Add Project</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const SHEET_ID = '1RhdRHKaMNExM725H6Rdh9pK7lA7H-e9QfkXe1Oy01cs';
+        const SERVICE_ACCOUNT = {
+            client_email: 'gds-dashboard-reader-v2@services-projects-dashboard.iam.gserviceaccount.com',
+            private_key: `-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDRVF/bCFpIywhJ
+FAXfb9QpWD3tAtqGAaRnSzwJ5DwZjThps3tiEUjXJWK3c9cZ89FrRnCX1mU9P8N/
+9n5P+p/GnqyZYgStzrY3hGt29OHmgK1AjJKMgO8uLVPsbn5aC+JOvLyOEOlzf0Ft
+VAROnKv38jq3PzZt62QgAlE+VJ90QZ4bsK+vSsDVU9xd3uYtlXIj4rd9y1N0X0rV
+JkiKU8lBoKnzCqY3fE7gL/zPa6r3T+VMXREp1eOuGAaW06k3MDU2ML6zjpk7SR4m
+qnZ4dSaJvABTrdP0/98lV7r1MlvjAN+mewy5NOHtXOfOe81lD2I/UYvkt4NJp2W9
+5wdL2RIfAgMBAAECggEAAuoWX2R+6CfUhupXLfaALXo2gil/IyvVy9YyC4ZL4plN
+ElMZmstQ9GdcZ4CFDPcfA/B3bKQoyPAT+TMoktkXBQuMw27mXoxgqa9p2LN4fNVK
+g8MjjlZ1umB4z35qKMKzgtbtNCe5S1I8QtyYaGnIizWM91rEl7PJKD1x2SAvCFGb
+SFHSIh1QVwPccFCwdHZf2MdiTfMlV2Ozofd+uJJnPNFyRLRMGGG0WUh6LL52KLc/
+5HByGd9nQCPrvOET0pZnK8tjmskfbyPCEe1BQFfT3FfCd9N6perIxJ9SHE7hc9e8
+EZzr4QOkvV8B9VxDxkXLkO9KTYi+Jqt49lSnMPnX2QKBgQDqDunMYvd+aLynipQu
+dYWNd9pCANf0N+kwch0cR0rg3reDpnYXxuAa/uwaB8yPEgkEFeJh1QVRtHiNET5I
+VkgIj7pVJ9WgmF6RJsBLEkUxc3UNWmAda5QFEMyKKr8w1sQHy85srMHryDXOuHvo
+696GM5PuW01cgQU/lBRCxyILKQKBgQDk9AGMHM3kM8F9Dr5tX+qMIneWbM3UsOdr
+2Q7W+af2MjqnVkkVnDjesyD/1BB+HrPD0hknK/WKz/unlSeVqaoWwDShxzkJLBdE
+JSKATo/GABpN2FHjgCAgnNFJYmHvus0WMcvyUxGxwEzYhlXkXNqu2KyIz+p9heVy
+n+WisbEkBwKBgQCMryoYj+PzN0Et8z3eLwV3YvLteVRUlsazN+QHe1Kmlzf3Cbcx
+03ggwdloTAfIdy60JfNMmp333mIXaKXnFPV3L+zwAmGFhhBRbtlmRjUQ5DUXMZtU
+E7WE1fQbmFYTJQPvK7GH4M8uyciN2JWiCyRVxerE+lwlnedpr7f963OrAQKBgDsL
+Jh8BCqPQKRTcKYXBV5ZeCSMU2hwApx2r82TDK2qVV4Tx/pUBHbVo0pjHEp3Dwy47
+z1rHvmHW8xorn/K7t254kNorq2zPHwzm2rfmCrPQMPhkUfHuh9qBNoPLSGBvdxZD
+L0pF2+lQI0Evm5Tx0T+IBy6dF+bZEev2ilzjoEAfAoGAGOi6Dl8JYW7D1eVs3HSo
+D18p7NJTqqXC2h7oqBsz/D+6E4ttSNVjR4ZiAkeEq4pfin4QegM5q9grDXg7hcvJ
+pgst9tIw0qWbJd1mclDFCSZLeG2PKxAgUIAfa8O0dtkxq1IWoKmU0eWpVQSex5j+
+AIGzN03HTyw4UxY4P+L+l2I=
+-----END PRIVATE KEY-----`
+        };
+
+        let currentDirector = '';
+        let currentStatus = '';
+        let currentProjectRow = null;
+        let directorProjects = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSavedDirector();
+            
+            document.getElementById('directorSelect').addEventListener('change', function() {
+                handleDirectorSelection();
+            });
+        });
+
+        function loadSavedDirector() {
+            const saved = localStorage.getItem('gdsDirector');
+            if (saved) {
+                document.getElementById('directorSelect').value = saved;
+                handleDirectorSelection();
+            }
+        }
+
+        function handleDirectorSelection() {
+            const select = document.getElementById('directorSelect');
+            currentDirector = select.value;
+            
+            if (currentDirector) {
+                if (document.getElementById('rememberMe').checked) {
+                    localStorage.setItem('gdsDirector', currentDirector);
+                }
+                
+                document.getElementById('mainActions').style.display = 'grid';
+                loadDirectorProjects();
+            } else {
+                document.getElementById('mainActions').style.display = 'none';
+            }
+        }
+
+        function showMainActions() {
+            document.getElementById('mainActions').style.display = 'grid';
+            document.getElementById('projectList').style.display = 'none';
+            document.getElementById('updateForm').style.display = 'none';
+            document.getElementById('addForm').style.display = 'none';
+            currentStatus = '';
+            currentProjectRow = null;
+        }
+
+        function showProjectList() {
+            document.getElementById('mainActions').style.display = 'none';
+            document.getElementById('projectList').style.display = 'grid';
+            renderProjectList();
+        }
+
+        function showUpdateForm(projectName, status, row) {
+            currentProjectRow = row;
+            currentStatus = status;
+            
+            document.getElementById('projectList').style.display = 'none';
+            document.getElementById('updateForm').style.display = 'block';
+            document.getElementById('updateProjectName').value = projectName;
+            
+            // Reset status buttons
+            document.querySelectorAll('#updateForm .status-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(status)) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        function showAddForm() {
+            currentStatus = 'Not Started';
+            document.getElementById('mainActions').style.display = 'none';
+            document.getElementById('addForm').style.display = 'block';
+            
+            // Clear form
+            document.getElementById('addProjectName').value = '';
+            document.getElementById('addTargetDate').value = '';
+            document.getElementById('addNote').value = '';
+        }
+
+        function selectStatus(status) {
+            currentStatus = status;
+            
+            // Update button states
+            const container = event.target.parentElement;
+            container.querySelectorAll('.status-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function renderProjectList() {
+            const container = document.getElementById('projectList');
+            container.innerHTML = '<div class="loading">Loading your projects...</div>';
+            
+            // Filter projects for current director
+            const myProjects = directorProjects.filter(p => 
+                p.director === currentDirector && 
+                p.status !== 'Completed' && 
+                p.status !== 'On Hold'
+            );
+            
+            if (myProjects.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #718096;">
+                        <p>No active projects found.</p>
+                        <button class="back-btn" onclick="showMainActions()" style="margin-top: 20px;">Back</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = myProjects.map((project, index) => `
+                <div class="project-card ${getDirectorClass(currentDirector)}" 
+                     onclick="showUpdateForm('${project.projectName}', '${project.status}', ${project.row})">
+                    <div class="project-name">${project.projectName}</div>
+                    <span class="project-status status-${getStatusClass(project.status)}">
+                        ${getStatusIcon(project.status)} ${project.status}
+                    </span>
+                </div>
+            `).join('') + '<button class="back-btn" onclick="showMainActions()" style="margin-top: 20px;">Back</button>';
+        }
+
+        function getDirectorClass(director) {
+            const map = {
+                'Khalid': 'khalid',
+                'Shelley': 'shelley',
+                'Oster': 'oster',
+                'Walid': 'walid',
+                'Chris F.': 'chris-f',
+                'Natalie': 'natalie'
+            };
+            return map[director] || '';
+        }
+
+        function getStatusClass(status) {
+            return status.toLowerCase().replace('/', '-').replace(' ', '-');
+        }
+
+        function getStatusIcon(status) {
+            const icons = {
+                'Not Started': '🔵',
+                'In Progress': '🟢',
+                'Blocked/Stuck': '🔴',
+                'Completed': '✅',
+                'On Hold': '⏸️'
+            };
+            return icons[status] || '';
+        }
+
+        async function loadDirectorProjects() {
+            try {
+                const token = await getAccessToken();
+                const sheetName = getSheetName(currentDirector);
+                
+                const response = await fetch(
+                    `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A2:F1000`,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+                );
+                
+                const data = await response.json();
+                
+                if (data.values) {
+                    directorProjects = data.values
+                        .map((row, index) => ({
+                            row: index + 2, // Row number in sheet (starting from 2)
+                            director: currentDirector,
+                            projectName: row[0] || '',
+                            status: row[1] || 'Not Started',
+                            note: row[2] || '',
+                            lastUpdated: row[3] || '',
+                            targetDate: row[4] || ''
+                        }))
+                        .filter(p => p.projectName); // Only include rows with project names
+                }
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                showError('Failed to load projects. Please try again.');
+            }
+        }
+
+        function getSheetName(director) {
+            const sheetMap = {
+                'Khalid': 'Khalid-Facilities',
+                'Shelley': 'Shelley-Security',
+                'Oster': 'Chris O-Sustainability',
+                'Walid': 'Walid-IT',
+                'Chris F.': 'Chris F-Transportation',
+                'Natalie': 'Natalie-Aux&Rentals'
+            };
+            return sheetMap[director];
+        }
+
+        async function submitUpdate() {
+            const note = document.getElementById('updateNote').value;
+            
+            try {
+                showSuccess('Updating project...');
+                
+                const token = await getAccessToken();
+                const sheetName = getSheetName(currentDirector);
+                
+                // Update status
+                await updateCell(token, sheetName, `B${currentProjectRow}`, currentStatus);
+                
+                // Update note if provided
+                if (note) {
+                    await updateCell(token, sheetName, `C${currentProjectRow}`, note);
+                }
+                
+                // Update timestamp
+                await updateCell(token, sheetName, `D${currentProjectRow}`, new Date().toLocaleDateString());
+                
+                showSuccess('Project updated successfully!');
+                setTimeout(() => {
+                    showMainActions();
+                    loadDirectorProjects(); // Reload data
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error updating project:', error);
+                showError('Failed to update project. Please try again.');
+            }
+        }
+
+        async function submitAdd() {
+            const projectName = document.getElementById('addProjectName').value;
+            const targetDate = document.getElementById('addTargetDate').value;
+            const note = document.getElementById('addNote').value;
+            
+            if (!projectName) {
+                showError('Please enter a project name.');
+                return;
+            }
+            
+            try {
+                showSuccess('Adding project...');
+                
+                const token = await getAccessToken();
+                const sheetName = getSheetName(currentDirector);
+                
+                // Find next empty row
+                const nextRow = directorProjects.length + 2;
+                
+                // Add new project
+                const values = [[
+                    projectName,
+                    currentStatus,
+                    note || '',
+                    new Date().toLocaleDateString(),
+                    targetDate || ''
+                ]];
+                
+                await appendRow(token, sheetName, values);
+                
+                showSuccess('Project added successfully!');
+                setTimeout(() => {
+                    showMainActions();
+                    loadDirectorProjects(); // Reload data
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Error adding project:', error);
+                showError('Failed to add project. Please try again.');
+            }
+        }
+
+        async function updateCell(token, sheetName, cell, value) {
+            const response = await fetch(
+                `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!${cell}?valueInputOption=USER_ENTERED`,
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        values: [[value]]
+                    })
+                }
+            );
+            
+            if (!response.ok) {
+                throw new Error('Failed to update cell');
+            }
+        }
+
+        async function appendRow(token, sheetName, values) {
+            const response = await fetch(
+                `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:F:append?valueInputOption=USER_ENTERED`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        values: values
+                    })
+                }
+            );
+            
+            if (!response.ok) {
+                throw new Error('Failed to add row');
+            }
+        }
+
+        function showSuccess(message) {
+            const el = document.getElementById('successMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 3000);
+        }
+
+        function showError(message) {
+            const el = document.getElementById('errorMessage');
+            el.textContent = message;
+            el.style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 5000);
+        }
+
+        // JWT functions (same as dashboard)
+        async function getAccessToken() {
+            const now = Math.floor(Date.now() / 1000);
+            const expiry = now + 3600;
+            
+            const header = {
+                "alg": "RS256",
+                "typ": "JWT"
+            };
+            
+            const payload = {
+                "iss": SERVICE_ACCOUNT.client_email,
+                "scope": "https://www.googleapis.com/auth/spreadsheets",
+                "aud": "https://oauth2.googleapis.com/token",
+                "exp": expiry,
+                "iat": now
+            };
+            
+            const jwt = await createJWT(header, payload, SERVICE_ACCOUNT.private_key);
+            
+            const formBody = 'grant_type=' + encodeURIComponent('urn:ietf:params:oauth:grant-type:jwt-bearer') +
+                            '&assertion=' + encodeURIComponent(jwt);
+            
+            const response = await fetch('https://oauth2.googleapis.com/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: formBody
+            });
+            
+            const data = await response.json();
+            return data.access_token;
+        }
+        
+        async function createJWT(header, payload, privateKey) {
+            const encoder = new TextEncoder();
+            
+            const headerB64 = btoa(JSON.stringify(header)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+            const payloadB64 = btoa(JSON.stringify(payload)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+            
+            const data = `${headerB64}.${payloadB64}`;
+            
+            const keyData = privateKey
+                .replace('-----BEGIN PRIVATE KEY-----', '')
+                .replace('-----END PRIVATE KEY-----', '')
+                .replace(/\s/g, '');
+            
+            const binaryKey = Uint8Array.from(atob(keyData), c => c.charCodeAt(0));
+            
+            const cryptoKey = await crypto.subtle.importKey(
+                'pkcs8',
+                binaryKey,
+                {
+                    name: 'RSASSA-PKCS1-v1_5',
+                    hash: 'SHA-256'
+                },
+                false,
+                ['sign']
+            );
+            
+            const signature = await crypto.subtle.sign(
+                'RSASSA-PKCS1-v1_5',
+                cryptoKey,
+                encoder.encode(data)
+            );
+            
+            const signatureB64 = btoa(String.fromCharCode(...new Uint8Array(signature)))
+                .replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+            
+            return `${data}.${signatureB64}`;
+        }
+    </script>
+</body>
+</html>
