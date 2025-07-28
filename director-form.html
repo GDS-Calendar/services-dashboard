@@ -732,7 +732,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
 
         async function appendRow(token, sheetName, values) {
             const response = await fetch(
-                `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:F:append?valueInputOption=USER_ENTERED`,
+                `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:E:append?valueInputOption=USER_ENTERED`,
                 {
                     method: 'POST',
                     headers: {
@@ -746,6 +746,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
             );
             
             if (!response.ok) {
+                const error = await response.json();
+                console.error('API Error:', error);
                 throw new Error('Failed to add row');
             }
         }
