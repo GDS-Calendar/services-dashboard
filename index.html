@@ -156,7 +156,19 @@
         .director-card.chris-o { border-left-color: #99ff99; }
         .director-card.walid { border-left-color: #ffcc99; }
         .director-card.chris-f { border-left-color: #cc99ff; }
-        .director-card.natalie { border-left-color: #ffff99; }
+        .director-card.all-directors { 
+            border-left-color: #4299e1; 
+            background: #f0f9ff;
+        }
+
+        .director-card.all-directors .director-name {
+            color: #1e40af;
+            font-weight: 700;
+        }
+
+        .director-card.all-directors .director-count {
+            color: #2563eb;
+        }
 
         .director-card.khalid.active { background: linear-gradient(135deg, #ff9999, #ffb3b3); color: white; }
         .director-card.shelley.active { background: linear-gradient(135deg, #99ccff, #b3d9ff); color: white; }
@@ -585,6 +597,10 @@
 
         <!-- Director Stats Grid -->
         <div class="director-stats-grid" id="directorStatsGrid">
+            <div class="director-card all-directors" onclick="navigateToHome()" id="directorAll">
+                <div class="director-name">All</div>
+                <div class="director-count" id="allCount">--</div>
+            </div>
             <div class="director-card khalid" onclick="filterByDirector('Khalid')" id="directorKhalid">
                 <div class="director-name">Khalid</div>
                 <div class="director-count" id="khalidCount">--</div>
@@ -779,6 +795,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 }
             });
 
+            document.getElementById('allCount').textContent = data.length;
             document.getElementById('khalidCount').textContent = directorCounts['Khalid'];
             document.getElementById('shelleyCount').textContent = directorCounts['Shelley'];
             document.getElementById('chrisOCount').textContent = directorCounts['Oster'];
