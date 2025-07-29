@@ -805,7 +805,10 @@ AIGzN03HTyw4UxY4P+L+l2I=
         }
 
         function updateStats(data) {
-            const total = data.length;
+            // Filter out completed and on hold for active count
+            const activeData = data.filter(p => p.status !== 'Completed' && p.status !== 'On Hold');
+            const total = activeData.length;
+            
             const blockedStuck = data.filter(p => p.status === 'Blocked/Stuck').length;
             const inProgress = data.filter(p => p.status === 'In Progress').length;
             const notStarted = data.filter(p => p.status === 'Not Started').length;
