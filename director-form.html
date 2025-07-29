@@ -736,7 +736,9 @@ AIGzN03HTyw4UxY4P+L+l2I=
         }
 
         async function appendRow(token, sheetName, values) {
-            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${sheetName}!A:E:append?valueInputOption=USER_ENTERED`;
+            const encodedSheetName = encodeURIComponent(sheetName);
+            const range = `${encodedSheetName}!A:E`;
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED`;
             console.log('Append URL:', url);
             
             const response = await fetch(url, {
