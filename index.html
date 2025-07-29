@@ -586,10 +586,6 @@
     <div class="dashboard-container">
         <!-- Navigation Row -->
         <div class="navigation-row">
-            <div id="homeCard" onclick="navigateToHome()" style="display: none;">
-                <span class="icon">🏠</span>
-                <span>Back to Dashboard</span>
-            </div>
             <div id="breadcrumbCard" style="display: none;">
                 <span id="breadcrumbCurrent"></span>
             </div>
@@ -884,7 +880,6 @@ AIGzN03HTyw4UxY4P+L+l2I=
             document.getElementById('statAll').classList.add('active');
 
             // Show navigation elements
-            document.getElementById('homeCard').style.display = 'flex';
             document.getElementById('breadcrumbCard').style.display = 'block';
             document.getElementById('breadcrumbCurrent').textContent = `${director}'s Projects`;
 
@@ -911,7 +906,6 @@ AIGzN03HTyw4UxY4P+L+l2I=
             document.getElementById('statAll').classList.add('active');
             
             // Hide navigation elements
-            document.getElementById('homeCard').style.display = 'none';
             document.getElementById('breadcrumbCard').style.display = 'none';
 
             // Reset title
