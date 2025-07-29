@@ -837,7 +837,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 filteredData = data.filter(p => p.director === currentDirector);
             }
 
-            // Then apply status filter
+            // Then apply status filter - but only if it's not 'all'
             if (currentFilter !== 'all') {
                 filteredData = filteredData.filter(p => 
                     p.status.toLowerCase().replace('/', '-').replace(' ', '-') === 
@@ -851,6 +851,9 @@ AIGzN03HTyw4UxY4P+L+l2I=
         function filterByDirector(director) {
             currentDirector = director;
             currentFilter = 'all';
+            
+            console.log('Filtering by director:', director);
+            console.log('Current filter:', currentFilter);
 
             // Update director card states
             document.querySelectorAll('.director-card').forEach(card => {
@@ -880,12 +883,6 @@ AIGzN03HTyw4UxY4P+L+l2I=
             });
             document.getElementById('statAll').classList.add('active');
 
-            // Reset filter buttons
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector('.filter-btn').classList.add('active');
-
             // Show navigation elements
             document.getElementById('homeCard').style.display = 'flex';
             document.getElementById('breadcrumbCard').style.display = 'block';
@@ -894,6 +891,9 @@ AIGzN03HTyw4UxY4P+L+l2I=
             // Update projects title
             document.querySelector('.projects-title').textContent = `${director}'s Projects`;
 
+            // Actually filter and show the projects
+            console.log('Total projects:', projectsData.length);
+            console.log('Director projects:', directorData.length);
             renderProjects(projectsData);
         }
 
