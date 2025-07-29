@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDS Events Calendar</title>
+    
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+    
+    <!-- Custom Styles to match GDS aesthetic -->
+    <style>
+        /* Base styles matching GDS site */
+        body {
+            font-family: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        #calendar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        /* Search bar styling */
+        #calendar-search {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        #search-input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+        
+        #search-input:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+        
+        /* FullCalendar customization */
+        .fc {
+            font-family: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .fc-toolbar-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .fc-button {
+            background-color: #0066cc;
+            border: none;
+            font-weight: 500;
+            text-transform: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        
+        .fc-button:hover {
+            background-color: #0052a3;
+        }
+        
+        .fc-button-active {
+            background-color: #004080 !important;
+        }
+        
+        .fc-button:focus {
+            box-shadow: none !important;
+        }
+        
+        .fc-button:disabled {
+            background-color: #ccc;
+            opacity: 0.65;
+        }
+        
+        /* Calendar grid styling */
+        .fc-theme-standard td, .fc-theme-standard th {
+            border-color: #e0e0e0;
+        }
+        
+        .fc-col-header-cell {
+            background-color: #f8f8f8;
+            font-weight: 600;
+            color: #555;
+            padding: 10px 0;
+        }
+        
+        .fc-day-today {
+            background-color: #f0f7ff !important;
+        }
+        
+        /* Event styling */
+        .fc-event {
+            background-color: #0066cc;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .fc-event:hover {
+            background-color: #0052a3;
+        }
+        
+        .fc-event-title {
+            font-weight: 500;
+        }
+        
+        /* Modal styling */
+        .event-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-right: 40px;
+        }
+        
+        .modal-date {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .modal-time {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-description {
+            color: #444;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .modal-location {
+            color: #0066cc;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .fc-toolbar {
+                flex-direction: column;
+            }
+            
+            .fc-toolbar-chunk {
+                display: flex;
+                justify-content: center;
+                margin: 5px 0;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="calendar-container">
+        <div id="calendar-search">
+            <input type="text" id="search-input" placeholder="Search events...">
+        </div>
+        <div id="calendar"></div>
+    </div>
+    
+    <!-- Event Details Modal -->
+    <div id="eventModal" class="event-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 class="modal-title" id="modal-title"></h2>
+            <div class="modal-date" id="modal-date"></div>
+            <div class="modal-time" id="modal-time"></div>
+            <div class="modal-location" id="modal-location"></div>
+            <div class="modal-description" id="modal-description"></div>
+        </div>
+    </div>
+
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+    
+    <!-- ical.js for parsing ICS -->
+    <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+    
+    <script>
+        let calendar;
+        let allEvents = [];
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+            const modal = document.getElementById('eventModal');
+            const span = document.getElementsByClassName('close')[0];
+            const searchInput = document.getElementById('search-input');
+            
+            // Initialize calendar
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                height: 'auto',
+                eventClick: function(info) {
+                    showEventModal(info.event);
+                },
+                eventColor: '#0066cc',
+                nowIndicator: true,
+                dayMaxEvents: 3
+            });
+            
+            // Load ICS data
+            loadICSData();
+            
+            // Modal close handlers
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+            
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+            
+            // Search functionality
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                filterEvents(searchTerm);
+            });
+        });
+        
+        function loadICSData() {
+            fetch('https://gds-calendar.github.io/gds-calendar/school_events.ics')
+                .then(response => response.text())
+                .then(data => {
+                    const jcalData = ICAL.parse(data);
+                    const comp = new ICAL.Component(jcalData);
+                    const vevents = comp.getAllSubcomponents('vevent');
+                    
+                    allEvents = vevents.map(vevent => {
+                        const event = new ICAL.Event(vevent);
+                        const startDate = event.startDate.toJSDate();
+                        const endDate = event.endDate.toJSDate();
+                        
+                        return {
+                            title: event.summary || 'Untitled Event',
+                            start: startDate,
+                            end: endDate,
+                            allDay: event.isAllDay,
+                            extendedProps: {
+                                description: event.description || '',
+                                location: event.location || ''
+                            }
+                        };
+                    });
+                    
+                    calendar.addEventSource(allEvents);
+                    calendar.render();
+                })
+                .catch(error => {
+                    console.error('Error loading ICS file:', error);
+                });
+        }
+        
+        function showEventModal(event) {
+            const modal = document.getElementById('eventModal');
+            const title = document.getElementById('modal-title');
+            const date = document.getElementById('modal-date');
+            const time = document.getElementById('modal-time');
+            const location = document.getElementById('modal-location');
+            const description = document.getElementById('modal-description');
+            
+            title.textContent = event.title;
+            
+            // Format date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            date.textContent = event.start.toLocaleDateString('en-US', options);
+            
+            // Format time
+            if (event.allDay) {
+                time.textContent = 'All Day';
+            } else {
+                const startTime = event.start.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                const endTime = event.end.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+                time.textContent = `${startTime} - ${endTime}`;
+            }
+            
+            // Location
+            if (event.extendedProps.location) {
+                location.textContent = `📍 ${event.extendedProps.location}`;
+                location.style.display = 'block';
+            } else {
+                location.style.display = 'none';
+            }
+            
+            // Description
+            if (event.extendedProps.description) {
+                description.innerHTML = event.extendedProps.description.replace(/\n/g, '<br>');
+                description.style.display = 'block';
+            } else {
+                description.style.display = 'none';
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function filterEvents(searchTerm) {
+            calendar.removeAllEvents();
+            
+            if (searchTerm === '') {
+                calendar.addEventSource(allEvents);
+            } else {
+                const filteredEvents = allEvents.filter(event => {
+                    const inTitle = event.title.toLowerCase().includes(searchTerm);
+                    const inDescription = event.extendedProps.description.toLowerCase().includes(searchTerm);
+                    const inLocation = event.extendedProps.location.toLowerCase().includes(searchTerm);
+                    return inTitle || inDescription || inLocation;
+                });
+                calendar.addEventSource(filteredEvents);
+            }
+        }
+    </script>
+</body>
+</html>
