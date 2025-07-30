@@ -176,6 +176,7 @@
         .director-card.walid.active { background: linear-gradient(135deg, #ffcc99, #ffd9b3); color: white; }
         .director-card.chris-f.active { background: linear-gradient(135deg, #cc99ff, #d9b3ff); color: white; }
         .director-card.natalie.active { background: linear-gradient(135deg, #ffff99, #ffffb3); color: #333; }
+        .director-card.tim.active { background: linear-gradient(135deg, #ffb3ff, #ffc6ff); color: white; }
 
         .director-name {
             font-size: 0.9rem;
@@ -440,6 +441,7 @@
         .project-card.walid { border-left-color: #ffcc99; }
         .project-card.chris-f { border-left-color: #cc99ff; }
         .project-card.natalie { border-left-color: #ffff99; }
+        .project-card.tim { border-left-color: #ffb3ff; }
 
         .project-header {
             display: flex;
@@ -621,6 +623,10 @@
                 <div class="director-name">Natalie</div>
                 <div class="director-count" id="natalieCount">--</div>
             </div>
+            <div class="director-card tim" onclick="filterByDirector('Tim')" id="directorTim">
+                <div class="director-name">Tim</div>
+                <div class="director-count" id="timCount">--</div>
+            </div>
         </div>
 
         <div class="section-divider"></div>
@@ -782,7 +788,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 'Oster': 0,
                 'Walid': 0,
                 'Chris F.': 0,
-                'Natalie': 0
+                'Natalie': 0,
+                'Tim': 0
             };
 
             data.forEach(project => {
@@ -798,6 +805,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
             document.getElementById('walidCount').textContent = directorCounts['Walid'];
             document.getElementById('chrisFCount').textContent = directorCounts['Chris F.'];
             document.getElementById('natalieCount').textContent = directorCounts['Natalie'];
+            document.getElementById('timCount').textContent = directorCounts['Tim'];
         }
 
         function updateStats(data) {
@@ -862,7 +870,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 'Oster': 'directorChrisO',
                 'Walid': 'directorWalid',
                 'Chris F.': 'directorChrisF',
-                'Natalie': 'directorNatalie'
+                'Natalie': 'directorNatalie',
+                'Tim': 'directorTim'
             };
             
             if (directorMap[director]) {
