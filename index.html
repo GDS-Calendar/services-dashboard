@@ -586,12 +586,8 @@
     </div>
 
     <div class="dashboard-container">
-        <!-- Navigation Row -->
-        <div class="navigation-row">
-            <div id="breadcrumbCard" style="display: none;">
-                <span id="breadcrumbCurrent"></span>
-            </div>
-        </div>
+        <!-- Navigation Row (empty now) -->
+        <div class="navigation-row"></div>
 
         <!-- Director Stats Grid -->
         <div class="director-stats-grid" id="directorStatsGrid">
@@ -888,9 +884,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
             });
             document.getElementById('statAll').classList.add('active');
 
-            // Show navigation elements
-            document.getElementById('breadcrumbCard').style.display = 'block';
-            document.getElementById('breadcrumbCurrent').textContent = `${director}'s Projects`;
+            // Don't show breadcrumb anymore - card highlighting is enough
 
             // Update projects title
             document.querySelector('.projects-title').textContent = `${director}'s Projects`;
@@ -914,8 +908,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
             });
             document.getElementById('statAll').classList.add('active');
             
-            // Hide navigation elements
-            document.getElementById('breadcrumbCard').style.display = 'none';
+            // No breadcrumb needed
 
             // Reset title
             document.querySelector('.projects-title').textContent = 'Active Projects';
