@@ -72,7 +72,7 @@
             max-width: 1400px;
             margin: 0 auto;
             background: transparent;
-            padding: 45px 20px 20px 20px;
+            padding: 40px 15px 15px 15px;
         }
 
         .navigation-row {
@@ -125,25 +125,25 @@
 
         .director-stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin-bottom: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .director-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
             border-left: 3px solid #e2e8f0;
         }
 
         .director-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
         }
 
         .director-card.active {
@@ -179,9 +179,9 @@
         .director-card.tim.active { background: linear-gradient(135deg, #ffb3ff, #ffc6ff); color: white; }
 
         .director-name {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #2d3748;
         }
 
@@ -190,10 +190,9 @@
         }
 
         .director-count {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #4299e1;
-            margin-bottom: 2px;
         }
 
         .director-card.active .director-count {
@@ -214,25 +213,25 @@
 
         .section-divider {
             border-top: 1px solid #e2e8f0;
-            margin: 20px 0 15px 0;
+            margin: 12px 0 10px 0;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .stat-card {
             background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+            padding: 12px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             text-align: center;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
             cursor: pointer;
-            border: 2px solid transparent;
+            border: 1px solid #e2e8f0;
         }
 
         .stat-card:hover {
@@ -251,8 +250,8 @@
 
         /* Special styling for Completed card */
         #statCompleted {
-            background: #f0fdf4;
-            border: 2px solid #86efac;
+            background: #f7fafc;
+            border: 1px solid #86efac;
         }
 
         #statCompleted .stat-number {
@@ -267,8 +266,8 @@
         /* Special styling for On Hold card */
         #statOnHold {
             background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            opacity: 0.8;
+            border: 1px dashed #cbd5e1;
+            opacity: 0.85;
         }
 
         #statOnHold .stat-number {
@@ -334,17 +333,17 @@
         }
 
         .stat-number {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .stat-label {
             color: #718096;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            font-size: 0.7rem;
         }
 
         .active-projects { color: #4299e1; }
@@ -358,11 +357,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .projects-title {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: #2d3748;
         }
@@ -418,21 +417,21 @@
 
         .projects-container {
             display: grid;
-            gap: 15px;
+            gap: 8px;
         }
 
         .project-card {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-left: 4px solid #e2e8f0;
-            transition: all 0.3s ease;
+            border-radius: 4px;
+            padding: 12px 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border-left: 3px solid #e2e8f0;
+            transition: all 0.15s ease;
         }
 
         .project-card:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+            transform: translateY(-1px);
         }
 
         .project-card.khalid { border-left-color: #ff9999; }
@@ -447,32 +446,32 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
         }
 
         .project-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             color: #2d3748;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
 
         .project-director {
             background: #f7fafc;
             color: #4a5568;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
             font-weight: 500;
         }
 
         .status-badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
         }
 
         .status-not-started {
@@ -504,15 +503,16 @@
 
         .project-note {
             color: #4a5568;
-            line-height: 1.5;
-            margin-bottom: 15px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
         }
 
         .project-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #718096;
         }
 
@@ -759,7 +759,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                             <div class="project-director">${project.director}</div>
                         </div>
                         <div class="status-badge status-${statusClass}">
-                            ${statusIcon} ${project.status}
+                            ${project.status}
                         </div>
                     </div>
                     <div class="project-note">${project.latestNote}</div>
