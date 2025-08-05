@@ -1017,13 +1017,29 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 return;
             }
 
-            // Apply director filter first if active
+            // Start with all data
             let filteredData = data;
+            
+            // If no filters are active (showing main dashboard), exclude completed and on hold
+            if (!currentDirector && currentFilter === 'all') {
+                filteredData = data.filter(p => 
+                    p.status !== 'Completed' && p.status !== 'On Hold'
+                );
+            }
+            
+            // Apply director filter if active
             if (currentDirector) {
-                filteredData = data.filter(p => p.director === currentDirector);
+                filteredData = filteredData.filter(p => p.director === currentDirector);
+                
+                // When viewing a specific director with 'all' filter, also exclude completed/on hold
+                if (currentFilter === 'all') {
+                    filteredData = filteredData.filter(p => 
+                        p.status !== 'Completed' && p.status !== 'On Hold'
+                    );
+                }
             }
 
-            // Then apply status filter - but only if it's not 'all'
+            // Apply specific status filter if not 'all'
             if (currentFilter !== 'all') {
                 filteredData = filteredData.filter(p => 
                     p.status.toLowerCase().replace('/', '-').replace(' ', '-') === 
