@@ -1307,6 +1307,11 @@ AIGzN03HTyw4UxY4P+L+l2I=
                 console.log('Processed projects data:', projectsData);
                 console.log('Number of projects after processing:', projectsData.length);
                 
+                // Log some completed projects to debug
+                const completedProjects = projectsData.filter(p => p.status === 'Completed');
+                console.log('Completed projects found:', completedProjects.length);
+                console.log('Sample completed:', completedProjects.slice(0, 3));
+                
                 updateStats(projectsData);
                 updateDirectorStats(projectsData);
                 renderProjects(projectsData);
