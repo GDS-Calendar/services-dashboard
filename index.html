@@ -26,20 +26,26 @@
             left: 0;
             right: 0;
             background: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 10px 20px;
+            border-bottom: 2px solid #000;
+            padding: 8px 20px;
             z-index: 1000;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            box-shadow: none;
         }
 
         .header h1 {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 900;
             margin: 0;
-            color: #1a202c;
-            letter-spacing: 0.02em;
+            color: #000;
+            letter-spacing: 0.05em;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::after {
+            display: none;
         }
 
         .dashboard-container {
@@ -58,44 +64,8 @@
             gap: 20px;
         }
 
-        #homeCard {
-            background: #f7fafc;
-            color: #2d3748;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid #e2e8f0;
-            text-decoration: none;
-            user-select: none;
-        }
-
-        #homeCard:hover {
-            background: #edf2f7;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            transform: translateY(-1px);
-        }
-
-        #homeCard .icon {
-            font-size: 1rem;
-        }
-
-        #breadcrumbCard {
-            background: #f7fafc;
-            color: #2d3748;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
+        /* Navigation Row (empty now) */
+        .navigation-row {}
 
         .director-stats-grid {
             display: grid;
@@ -105,25 +75,25 @@
         }
 
         .director-card {
-            background: #fafafa;
-            padding: 10px;
-            border-radius: 6px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            background: white;
+            padding: 8px;
+            border-radius: 0;
+            box-shadow: none;
             text-align: center;
-            transition: all 0.15s ease;
+            transition: all 0.1s ease;
             cursor: pointer;
-            border-left: 3px solid transparent;
+            border: 1px solid #000;
+            border-left: 4px solid #000;
         }
 
         .director-card:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            background: #f8f8f8;
         }
 
         .director-card.active {
-            background: white;
+            background: #000;
+            color: white;
             border-left-width: 4px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .director-card.khalid { border-left-color: #ff9999; }
@@ -131,8 +101,10 @@
         .director-card.chris-o { border-left-color: #99ff99; }
         .director-card.walid { border-left-color: #ffcc99; }
         .director-card.chris-f { border-left-color: #cc99ff; }
+        .director-card.natalie { border-left-color: #ffff99; }
+        .director-card.tim { border-left-color: #ffb3ff; }
         .director-card.all-directors { 
-            border-left-color: transparent;
+            border-left-color: #4299e1; 
             background: #f0f9ff;
         }
 
@@ -145,33 +117,33 @@
             color: #2563eb;
         }
 
-        .director-card.khalid.active { background: #fff5f5; border-left-color: #ff9999; }
-        .director-card.shelley.active { background: #f5f9ff; border-left-color: #99ccff; }
-        .director-card.chris-o.active { background: #f5fff5; border-left-color: #99ff99; }
-        .director-card.walid.active { background: #fff9f5; border-left-color: #ffcc99; }
-        .director-card.chris-f.active { background: #f9f5ff; border-left-color: #cc99ff; }
-        .director-card.natalie.active { background: #fffff5; border-left-color: #ffff99; }
-        .director-card.tim.active { background: #fff5ff; border-left-color: #ffb3ff; }
+        .director-card.khalid.active { background: #000; color: white; border-left-color: #ff9999; }
+        .director-card.shelley.active { background: #000; color: white; border-left-color: #99ccff; }
+        .director-card.chris-o.active { background: #000; color: white; border-left-color: #99ff99; }
+        .director-card.walid.active { background: #000; color: white; border-left-color: #ffcc99; }
+        .director-card.chris-f.active { background: #000; color: white; border-left-color: #cc99ff; }
+        .director-card.natalie.active { background: #000; color: white; border-left-color: #ffff99; }
+        .director-card.tim.active { background: #000; color: white; border-left-color: #ffb3ff; }
 
         .director-name {
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-            color: #2d3748;
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #000;
+            padding: 4px 0;
         }
 
         .director-card.active .director-name {
-            color: #1a202c;
+            color: white;
         }
 
         .director-count {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #000;
         }
 
         .director-card.active .director-count {
-            color: inherit;
+            color: white;
         }
 
         .director-label {
@@ -223,88 +195,8 @@
             color: white;
         }
 
-        /* Special styling for Completed card */
-        #statCompleted {
-            background: #f7fafc;
-            border: 1px solid #86efac;
-        }
-
-        #statCompleted .stat-number {
-            color: #22c55e;
-        }
-
-        #statCompleted .stat-label {
-            color: #16a34a;
-            font-weight: 600;
-        }
-
-        /* Special styling for On Hold card */
-        #statOnHold {
-            background: #f8fafc;
-            border: 1px dashed #cbd5e1;
-            opacity: 0.85;
-        }
-
-        #statOnHold .stat-number {
-            color: #64748b;
-        }
-
-        #statOnHold .stat-label {
-            color: #475569;
-            font-weight: 600;
-        }
-
-        /* Active states for special cards */
-        #statCompleted.active {
-            background: #22c55e;
-            border-color: #16a34a;
-        }
-
         .stat-card.active .stat-label {
             color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Special styling for Completed card */
-        #statCompleted {
-            background: #f0fdf4;
-            border: 2px solid #86efac;
-        }
-
-        #statCompleted .stat-number {
-            color: #22c55e;
-        }
-
-        #statCompleted .stat-label {
-            color: #16a34a;
-            font-weight: 600;
-        }
-
-        /* Special styling for On Hold card */
-        #statOnHold {
-            background: #f8fafc;
-            border: 2px dashed #cbd5e1;
-            opacity: 0.8;
-        }
-
-        #statOnHold .stat-number {
-            color: #64748b;
-        }
-
-        #statOnHold .stat-label {
-            color: #475569;
-            font-weight: 600;
-        }
-
-        /* Active states for special cards */
-        #statCompleted.active {
-            background: #22c55e;
-            border-color: #16a34a;
-        }
-
-        #statOnHold.active {
-            background: #64748b;
-            border-style: solid;
-            opacity: 1;
         }
 
         .stat-number {
@@ -397,16 +289,16 @@
 
         .project-card {
             background: white;
-            border-radius: 6px;
-            padding: 12px 14px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-            border-left: 3px solid #e2e8f0;
-            transition: all 0.15s ease;
+            border-radius: 0;
+            padding: 10px 12px;
+            box-shadow: none;
+            border: 1px solid #000;
+            border-left: 4px solid #000;
+            transition: all 0.1s ease;
         }
 
         .project-card:hover {
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-            transform: translateY(-1px);
+            background: #f8f8f8;
         }
 
         .project-card.khalid { border-left-color: #ff9999; }
@@ -553,6 +445,49 @@
             border-radius: 8px;
             margin: 20px 0;
         }
+
+        /* Special styling for Completed card */
+        #statCompleted {
+            background: #f7fafc;
+            border: 1px solid #86efac;
+        }
+
+        #statCompleted .stat-number {
+            color: #22c55e;
+        }
+
+        #statCompleted .stat-label {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        /* Special styling for On Hold card */
+        #statOnHold {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            opacity: 0.85;
+        }
+
+        #statOnHold .stat-number {
+            color: #64748b;
+        }
+
+        #statOnHold .stat-label {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        /* Active states for special cards */
+        #statCompleted.active {
+            background: #22c55e;
+            border-color: #16a34a;
+        }
+
+        #statOnHold.active {
+            background: #64748b;
+            border-style: solid;
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -568,35 +503,27 @@
         <div class="director-stats-grid" id="directorStatsGrid">
             <div class="director-card all-directors" onclick="navigateToHome()" id="directorAll">
                 <div class="director-name">All</div>
-                <div class="director-count" id="allCount">--</div>
             </div>
             <div class="director-card khalid" onclick="filterByDirector('Khalid')" id="directorKhalid">
                 <div class="director-name">Khalid</div>
-                <div class="director-count" id="khalidCount">--</div>
             </div>
             <div class="director-card shelley" onclick="filterByDirector('Shelley')" id="directorShelley">
                 <div class="director-name">Shelley</div>
-                <div class="director-count" id="shelleyCount">--</div>
             </div>
             <div class="director-card chris-o" onclick="filterByDirector('Oster')" id="directorChrisO">
                 <div class="director-name">Chris O.</div>
-                <div class="director-count" id="chrisOCount">--</div>
             </div>
             <div class="director-card walid" onclick="filterByDirector('Walid')" id="directorWalid">
                 <div class="director-name">Walid</div>
-                <div class="director-count" id="walidCount">--</div>
             </div>
             <div class="director-card chris-f" onclick="filterByDirector('Chris F.')" id="directorChrisF">
                 <div class="director-name">Chris F.</div>
-                <div class="director-count" id="chrisFCount">--</div>
             </div>
             <div class="director-card natalie" onclick="filterByDirector('Natalie')" id="directorNatalie">
                 <div class="director-name">Natalie</div>
-                <div class="director-count" id="natalieCount">--</div>
             </div>
             <div class="director-card tim" onclick="filterByDirector('Tim')" id="directorTim">
                 <div class="director-name">Tim</div>
-                <div class="director-count" id="timCount">--</div>
             </div>
         </div>
 
@@ -691,10 +618,11 @@ AIGzN03HTyw4UxY4P+L+l2I=
             const directorMap = {
                 'Khalid': 'khalid',
                 'Shelley': 'shelley',
-                'Oster': 'chris-o',
+                'Oster': 'oster',
                 'Walid': 'walid',
                 'Chris F.': 'chris-f',
-                'Natalie': 'natalie'
+                'Natalie': 'natalie',
+                'Tim': 'tim'
             };
             return directorMap[director] || '';
         }
