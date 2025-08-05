@@ -967,7 +967,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
                             <div class="status-badge status-${statusClass}">
                                 ${project.status}
                             </div>
-                            <button class="edit-btn" onclick="openEditModal('${project.projectName.replace(/'/g, "\\'")}', '${project.status}', '${project.director}', ${index})">Edit</button>
+                            <button class="edit-btn" onclick="openEditModal('${project.projectName.replace(/'/g, "\\'").replace(/"/g, "&quot;")}', '${project.status}', '${project.director}', ${index})">Edit</button>
                         </div>
                     </div>
                     <div class="project-note">${project.latestNote}</div>
