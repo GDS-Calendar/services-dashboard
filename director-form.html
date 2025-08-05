@@ -701,7 +701,8 @@ AIGzN03HTyw4UxY4P+L+l2I=
                     currentStatus,
                     note || '',
                     new Date().toLocaleDateString(),
-                    targetDate || ''
+                    targetDate || '',
+                    currentDirector  // Add director name to column F
                 ]];
                 console.log('Values to append:', values);
                 
@@ -741,7 +742,7 @@ AIGzN03HTyw4UxY4P+L+l2I=
 
         async function appendRow(token, sheetName, values) {
             const encodedSheetName = encodeURIComponent(sheetName);
-            const range = `${encodedSheetName}!A:E`;
+            const range = `${encodedSheetName}!A:F`;
             const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}:append?valueInputOption=USER_ENTERED`;
             console.log('Append URL:', url);
             
